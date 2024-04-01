@@ -261,7 +261,7 @@ fun AccountCreationScreen(
 
                 Button(
                     onClick = {
-                        val account = pixhubViewModel.addAccount()
+                        pixhubViewModel.addAccount()
                         navHostController?.navigate(Routes.HomeScreen.route)
                     },
                     modifier = Modifier.fillMaxWidth(),
