@@ -50,7 +50,7 @@ fun AppNavigation() {
         //Route 2 vers notre AccountCreationScreen
         composable(Routes.AccountCreationScreen.route) {
             //on peut passer le navHostController à un écran s'il déclenche des navigations
-            AccountCreationScreen(navHostController, pixhubViewModel = pixhubViewModel, userViewModel = userViewModel)
+            AccountCreationScreen(navHostController, pixhubViewModel = pixhubViewModel,  loginViewModel = loginViewModel, userViewModel = userViewModel)
         }
 
         //Route 3 vers notre HomeScreen

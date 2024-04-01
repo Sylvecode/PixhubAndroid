@@ -19,33 +19,27 @@ class PixhubViewModel : ViewModel() {
 
 
     // Fonction pour ajouter un compte
-    fun addAccount(
-        username: String,
-        familyName: String,
-        name: String,
-        email: String,
-        password: String,
-        passwordConfirm: String
-    ) {
-        if (password != passwordConfirm) {
+    fun addAccount(): AccountBean? {
+        var account: AccountBean? = null
+        if (passwordText.value != passwordConfirmText.value) {
             throw Exception("Les mots de passe doivent être identiques")
         } else {
             viewModelScope.launch(Dispatchers.Default) {
                 try {
-                    val account = AccountBean(
-                        username = username,
-                        familyName = familyName,
-                        name = name,
-                        email = email,
-                        password = password
+                     account = AccountBean(
+                        username = usernameText.value,
+                        familyName = familyNameText.value,
+                        name = nameText.value,
+                        email = emailText.value,
+                        password = passwordText.value
                     )
-                    PixhubAPI.addAccount(account)
+                    PixhubAPI.addAccount(account!!)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
 
             }
         }
-
+        return account
     }
 }

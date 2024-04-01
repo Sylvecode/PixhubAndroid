@@ -18,6 +18,7 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -34,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -68,12 +70,20 @@ fun LoginScreenPreview() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(navHostController: NavHostController? = null, loginViewModel: LoginViewModel, userViewModel: UserViewModel) {
+fun LoginScreen(
+    navHostController: NavHostController? = null,
+    loginViewModel: LoginViewModel,
+    userViewModel: UserViewModel
+) {
     var errorMessage by remember { mutableStateOf<String?>(null) }
     val account by loginViewModel.login().observeAsState()
 
-    Box(modifier = Modifier.fillMaxSize()
-        .background(color = Color(0xFF1E2535))) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Color(0xFF1E2535))
+            .padding(20.dp)
+    ) {
         // Ajouter l'image en arrière-plan
 
 
@@ -85,7 +95,7 @@ fun LoginScreen(navHostController: NavHostController? = null, loginViewModel: Lo
 
             ) {
 
-            Spacer(Modifier.height(30.dp))
+            Spacer(Modifier.height(15.dp))
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
@@ -99,10 +109,13 @@ fun LoginScreen(navHostController: NavHostController? = null, loginViewModel: Lo
                     //   modifier = Modifier.size(50.dp),
                     modifier = Modifier
                         .weight(1f)
-                        .size(80.dp)
+                        .size(110.dp)
                 )
+            }
 
+            Spacer(modifier = Modifier.size(5.dp))
 
+            Row() {
                 // Ajouter un padding entre "FOOT PASSION" et le logo
                 Spacer(modifier = Modifier.size(10.dp))
 
@@ -116,15 +129,14 @@ fun LoginScreen(navHostController: NavHostController? = null, loginViewModel: Lo
                         .weight(1f)
                         .size(50.dp)
                 )
-
             }
 
-            Spacer(Modifier.height(90.dp))
+            Spacer(Modifier.height(40.dp))
 
             Text(
 
                 text = "Connexion",
-                fontSize = 20.sp,
+                fontSize = 16.sp,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth(),
                 style = TextStyle(color = Color(0xFFD9D9D9))
@@ -143,8 +155,9 @@ fun LoginScreen(navHostController: NavHostController? = null, loginViewModel: Lo
 
             TextField(
                 label = {
-                    Text(text = "Identifiant",
-                        textAlign = TextAlign.Center)
+                    Text(
+                        text = "Identifiant"
+                    )
                 },
                 shape = RoundedCornerShape(14.dp),
                 value = loginViewModel.username.value,
@@ -157,11 +170,14 @@ fun LoginScreen(navHostController: NavHostController? = null, loginViewModel: Lo
 
                 )
 
-            Spacer(Modifier.height(20.dp))
+            Spacer(Modifier.height(16.dp))
 
             TextField(
                 label = {
-                    Text(text = "Mot de passe", modifier = Modifier.align(Alignment.CenterHorizontally))
+                    Text(
+                        text = "Mot de passe",
+                        fontSize = 16.sp
+                    )
                 },
                 shape = RoundedCornerShape(14.dp),
                 value = loginViewModel.password.value,
@@ -174,7 +190,7 @@ fun LoginScreen(navHostController: NavHostController? = null, loginViewModel: Lo
 
                 )
 
-            Spacer(Modifier.height(40.dp))
+            Spacer(Modifier.height(20.dp))
 
 
             Button(
@@ -192,14 +208,25 @@ fun LoginScreen(navHostController: NavHostController? = null, loginViewModel: Lo
                 contentPadding = ButtonDefaults.ButtonWithIconContentPadding,
                 colors = ButtonDefaults.buttonColors(Color(0xFF55F879), contentColor = Color.Black),
 
-            ) {
+                ) {
 
                 Spacer(Modifier.size(ButtonDefaults.IconSpacing))
-                Text("Se connecter")
+                Text("Se connecter", fontSize = 16.sp)
             }
-            Spacer(Modifier.height(10.dp))
+            Spacer(Modifier.height(20.dp))
+
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(text = "Pas de compte ?  ", color = Color.LightGray, fontSize = 14.sp)
+                ClickableText(
+                    text = AnnotatedString("Créer un compte"),
+                    style = TextStyle(
+                        fontSize = 14.sp,
+                        color = Color(0xFF55F879)
+                    ),
+                    onClick = {navHostController?.navigate(Routes.AccountCreationScreen.route)})
 
 
+            }
         }
     }
 }
