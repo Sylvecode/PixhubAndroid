@@ -76,7 +76,7 @@ fun LoginScreen(
     userViewModel: UserViewModel
 ) {
     var errorMessage by remember { mutableStateOf<String?>(null) }
-    val account by loginViewModel.login().observeAsState()
+
 
     Box(
         modifier = Modifier
@@ -195,14 +195,9 @@ fun LoginScreen(
 
             Button(
                 onClick = {
-                    //val account = loginViewModel.login()
-                    if (account != null) {
-                        userViewModel.user.value = account as AccountBean
-                        navHostController?.navigate(Routes.HomeScreen.route)
-                    } else {
-                        errorMessage = "Identifiant ou mot de passe incorrect"
+                    val context = navHostController?.context
+                    context?.let { loginViewModel.login(it, userViewModel) }
 
-                    }
                 },
                 shape = RoundedCornerShape(14.dp),
                 contentPadding = ButtonDefaults.ButtonWithIconContentPadding,

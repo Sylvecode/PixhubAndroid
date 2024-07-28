@@ -25,7 +25,6 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -36,22 +35,19 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.pixhubandroid.R
-import com.example.pixhubandroid.model.AccountBean
 import com.example.pixhubandroid.ui.theme.PixhubAndroidTheme
 import com.example.pixhubandroid.ui.theme.Routes
 import com.example.pixhubandroid.viewmodel.LoginViewModel
 import com.example.pixhubandroid.viewmodel.PixhubViewModel
 import com.example.pixhubandroid.viewmodel.UserViewModel
-import kotlinx.coroutines.delay
-import java.lang.Thread.sleep
 
 
 @Preview(showBackground = true, showSystemUi = true)
@@ -163,7 +159,7 @@ fun AccountCreationScreen(
                 // Champ de texte pour l'équipe 1
                 TextField(
                     label = {
-                        Text(text = "Identifiant")
+                        Text(text = "Pseudo")
                     },
                     shape = RoundedCornerShape(14.dp),
                     value = pixhubViewModel.usernameText.value,
@@ -261,7 +257,9 @@ fun AccountCreationScreen(
 
                 Button(
                     onClick = {
-                        pixhubViewModel.addAccount()
+                        if (navHostController != null) {
+                            pixhubViewModel.addAccount(navHostController.context)
+                        }
                         navHostController?.navigate(Routes.HomeScreen.route)
                     },
                     modifier = Modifier.fillMaxWidth(),
