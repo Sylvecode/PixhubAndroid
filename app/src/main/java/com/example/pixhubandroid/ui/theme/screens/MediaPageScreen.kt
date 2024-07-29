@@ -4,6 +4,9 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -71,6 +74,8 @@ fun MediaPageScreen(
     val artists by mutableStateOf(calendarViewModel.artistsList)
     val filteredArtists = artists.filter { it.name != null && it.profilePath != null }
 
+    val scrollState = rememberScrollState()
+
     Scaffold(
         bottomBar = {
             if (navHostController != null) {
@@ -87,7 +92,9 @@ fun MediaPageScreen(
                 .padding(10.dp)
         ) {
             Column(
-                modifier = Modifier.background(color = Color(0xFF1E2535))
+                modifier = Modifier
+                    .background(color = Color(0xFF1E2535))
+                    .verticalScroll(scrollState)
             ) {
                 Spacer(Modifier.height(30.dp))
 

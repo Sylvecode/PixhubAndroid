@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -59,6 +61,7 @@ fun ArtistPageScreen(
     navHostController: NavHostController? = null,
 ) {
     val coroutineScope = rememberCoroutineScope()
+    val scrollState = rememberScrollState()
 
     // Charger les détails de l'artiste et ses films
     LaunchedEffect(artistId) {
@@ -93,6 +96,7 @@ fun ArtistPageScreen(
                 modifier = Modifier
                     .background(color = Color(0xFF1E2535))
                     .padding(10.dp)
+                    .verticalScroll(scrollState)
             ) {
                 Spacer(Modifier.height(30.dp))
 
