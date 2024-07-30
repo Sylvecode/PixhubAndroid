@@ -104,6 +104,13 @@ object PixhubAPI {
         return gson.fromJson(response, MediaResponse::class.java)
     }
 
+
+    fun getRecentGames(): MediaResponse? {
+        val url = "http://10.0.2.2:8080/getRecentGames"
+        val response = sendGet(url)
+        return gson.fromJson(response, MediaResponse::class.java)
+    }
+
     private fun sendGet(url: String): String {
         println("url : $url")
         // Création de la requête GET

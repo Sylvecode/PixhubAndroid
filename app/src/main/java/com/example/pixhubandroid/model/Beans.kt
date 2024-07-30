@@ -21,6 +21,8 @@ data class AccountBean(
 class MediaBean {
     var adult = false
 
+
+
     @SerializedName("backdrop_path")
     var backdropPath: String? = null
 
@@ -36,8 +38,15 @@ class MediaBean {
     var overview: String? = null
     var popularity = 0.0
 
+    var name : String? = null
+
     @SerializedName("poster_path")
     var posterPath: String? = null
+
+    var platform: String? = null
+
+    @SerializedName("image_background")
+    var backgroundImage: String? = null
 
     @SerializedName("release_date")
     var releaseDate: String? = null

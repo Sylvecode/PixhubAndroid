@@ -76,6 +76,19 @@ fun Slider(calendarViewModel: CalendarViewModel, navHostController: NavHostContr
                 fontSize = 15.sp
             )
 
+            Text(
+                text = "Jeux vidéos",
+                fontSize = 10.sp,
+                color = Color.LightGray,
+                modifier = Modifier
+                    .wrapContentWidth(Alignment.End)
+                .clickable {
+                    navHostController.navigate("GamePageScreen")
+                }
+            )
+
+
+
             Spacer(Modifier.height(12.dp))
 
             calendarViewModel.list[page].title?.let {
@@ -121,7 +134,6 @@ fun Slider(calendarViewModel: CalendarViewModel, navHostController: NavHostContr
                         }
 
                 )
-
 
             }
         }

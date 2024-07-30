@@ -12,6 +12,7 @@ import com.example.pixhubandroid.ui.theme.screens.AccountScreen
 import com.example.pixhubandroid.ui.theme.screens.AccountUpdateScreen
 import com.example.pixhubandroid.ui.theme.screens.ArtistPageScreen
 import com.example.pixhubandroid.ui.theme.screens.CalendarScreen
+import com.example.pixhubandroid.ui.theme.screens.GamePageScreen
 import com.example.pixhubandroid.ui.theme.screens.HomeScreen
 import com.example.pixhubandroid.ui.theme.screens.LoginScreen
 import com.example.pixhubandroid.ui.theme.screens.MediaPageScreen
@@ -19,6 +20,7 @@ import com.example.pixhubandroid.ui.theme.screens.ProfileScreen
 import com.example.pixhubandroid.ui.theme.screens.SearchScreen
 import com.example.pixhubandroid.viewmodel.ArtistPageViewModel
 import com.example.pixhubandroid.viewmodel.CalendarViewModel
+import com.example.pixhubandroid.viewmodel.GamePageViewModel
 import com.example.pixhubandroid.viewmodel.HomeViewModel
 import com.example.pixhubandroid.viewmodel.LoginViewModel
 import com.example.pixhubandroid.viewmodel.PixhubViewModel
@@ -55,6 +57,9 @@ sealed class Routes(val route: String) {
     //Route 9
     data object ArtistPageScreen : Routes("ArtistPageScreen/{artistId}")
 
+    //Route 9
+    data object GamePageScreen : Routes("GamePageScreen")
+
 
 
 
@@ -81,6 +86,7 @@ fun AppNavigation(navHostController: NavHostController, userViewModel: UserViewM
     val userViewModel: UserViewModel = viewModel()
     val calendarViewModel: CalendarViewModel = viewModel()
     val artistPageViewModel: ArtistPageViewModel = viewModel()
+    val gamePageViewModel: GamePageViewModel = viewModel()
 
 
     // Définir la destination de départ en fonction de l'état de l'utilisateur
@@ -151,6 +157,11 @@ fun AppNavigation(navHostController: NavHostController, userViewModel: UserViewM
         composable(Routes.ArtistPageScreen.route) { backStackEntry ->
             val artistId = backStackEntry.arguments?.getString("artistId")?.toIntOrNull() ?: 0
             ArtistPageScreen(artistId = artistId, calendarViewModel = viewModel(), artistPageViewModel = viewModel(), navHostController = navHostController)
+        }
+
+        //Route 10 vers GamePageScreen
+        composable(Routes.GamePageScreen.route) { backStackEntry ->
+            GamePageScreen(gamePageViewModel = viewModel(), navHostController = navHostController)
         }
     }
 }
