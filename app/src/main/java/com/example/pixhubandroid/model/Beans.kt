@@ -39,11 +39,10 @@ class MediaBean {
     var popularity = 0.0
 
     var name : String? = null
-
     @SerializedName("poster_path")
     var posterPath: String? = null
 
-    var platform: String? = null
+    var platforms: String? = null
 
     @SerializedName("image_background")
     var backgroundImage: String? = null

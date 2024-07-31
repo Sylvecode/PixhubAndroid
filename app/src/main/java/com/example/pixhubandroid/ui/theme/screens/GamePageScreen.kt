@@ -148,8 +148,6 @@ fun GamePageScreen(
                             }
 
 
-
-
                             Box(
                                 modifier = Modifier
                                     .fillMaxSize()
