@@ -1,15 +1,15 @@
 package com.example.pixhubandroid.model
 
 import android.content.Context
-import android.content.SharedPreferences
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import com.google.gson.Gson
+import com.google.gson.JsonParser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 
 
@@ -20,6 +20,7 @@ object PixhubAPI {
 
     private val gson = Gson()
     private val client = OkHttpClient()
+    val searchName = mutableStateOf("")
 
 
 
@@ -109,6 +110,20 @@ object PixhubAPI {
         val url = "http://10.0.2.2:8080/getRecentGames"
         val response = sendGet(url)
         return gson.fromJson(response, MediaResponse::class.java)
+    }
+
+    fun search(searchName: MutableState<String>): Any? {
+        val url = "http://10.0.2.2:8080/search?query=$searchName"
+        val response = sendGet(url)
+
+        // Vous devrez connaître la structure de votre réponse pour déterminer comment différencier MediaBean de ArtistBean
+        val jsonResponse = JsonParser.parseString(response).asJsonObject
+
+        return when {
+            jsonResponse.has("movies") -> gson.fromJson(jsonResponse.get("movies"), MediaBean::class.java)
+            jsonResponse.has("persons") -> gson.fromJson(jsonResponse.get("persons"), ArtistBean::class.java)
+            else -> null
+        }
     }
 
     private fun sendGet(url: String): String {

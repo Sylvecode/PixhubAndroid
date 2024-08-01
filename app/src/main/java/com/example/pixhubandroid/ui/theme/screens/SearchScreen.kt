@@ -23,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -36,11 +37,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.pixhubandroid.R
 import com.example.pixhubandroid.ui.theme.PixhubAndroidTheme
-import com.example.pixhubandroid.ui.theme.Routes
-import com.example.pixhubandroid.viewmodel.HomeViewModel
-import com.example.pixhubandroid.viewmodel.UserViewModel
+import com.example.pixhubandroid.viewmodel.SearchViewModel
 
 
 @Preview(showBackground = true, showSystemUi = true)
@@ -50,10 +50,11 @@ fun SearchScreenPreview() {
     //Utilisé par exemple dans MainActivity.kt sous setContent {...}
     PixhubAndroidTheme {
         Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-            val homeViewModel: HomeViewModel = viewModel()
-            val userViewModel: UserViewModel = viewModel()
+            val searchViewModel: SearchViewModel = viewModel()
+            val navHostController = rememberNavController()
 
-            SearchScreen(homeViewModel = homeViewModel, userViewModel = userViewModel)
+
+            SearchScreen(navHostController = navHostController, searchViewModel = searchViewModel)
         }
     }
 }
@@ -63,9 +64,9 @@ fun SearchScreenPreview() {
 @Composable
 fun SearchScreen(
     navHostController: NavHostController? = null,
-    homeViewModel: HomeViewModel,
-    userViewModel: UserViewModel
+    searchViewModel: SearchViewModel
 ) {
+
 
     Scaffold(
         bottomBar = {
@@ -124,8 +125,13 @@ fun SearchScreen(
                     text = "Rechercher",
                     textAlign = TextAlign.Center,
                     fontSize = 18.sp,
-                    modifier = Modifier.fillMaxWidth(),
-                    //color = MaterialTheme.colorScheme.primary
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable{
+                            if (navHostController != null) {
+                                searchViewModel.loadSearchData()
+                            }
+                        },
                     color = Color.LightGray
                 )
 
@@ -133,8 +139,8 @@ fun SearchScreen(
 
                 val textState = rememberSaveable { mutableStateOf("") }
                 TextField(
-                    value = textState.value,
-                    onValueChange = { textState.value = it },
+                    value = searchViewModel.searchName.value,
+                    onValueChange = { searchViewModel.searchName.value = it },
                     placeholder = { Text(text = "Rechercher un film, un acteur...") },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -148,6 +154,8 @@ fun SearchScreen(
                 )
 
                 Spacer(Modifier.height(50.dp))
+
+
 
 
             }

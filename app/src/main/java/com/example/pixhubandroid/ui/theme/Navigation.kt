@@ -24,6 +24,7 @@ import com.example.pixhubandroid.viewmodel.GamePageViewModel
 import com.example.pixhubandroid.viewmodel.HomeViewModel
 import com.example.pixhubandroid.viewmodel.LoginViewModel
 import com.example.pixhubandroid.viewmodel.PixhubViewModel
+import com.example.pixhubandroid.viewmodel.SearchViewModel
 import com.example.pixhubandroid.viewmodel.UserViewModel
 
 sealed class Routes(val route: String) {
@@ -87,6 +88,7 @@ fun AppNavigation(navHostController: NavHostController, userViewModel: UserViewM
     val calendarViewModel: CalendarViewModel = viewModel()
     val artistPageViewModel: ArtistPageViewModel = viewModel()
     val gamePageViewModel: GamePageViewModel = viewModel()
+    val searchViewModel: SearchViewModel = viewModel()
 
 
     // Définir la destination de départ en fonction de l'état de l'utilisateur
@@ -123,7 +125,7 @@ fun AppNavigation(navHostController: NavHostController, userViewModel: UserViewM
         //Route 5 vers SearchScreen
         composable(Routes.SearchScreen.route) {
             //on peut passer le navHostController à un écran s'il déclenche des navigations
-            SearchScreen(navHostController, homeViewModel = homeViewModel, userViewModel = userViewModel)
+            SearchScreen(navHostController, searchViewModel = searchViewModel)
         }
 
 
