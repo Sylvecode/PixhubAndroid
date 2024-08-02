@@ -1,17 +1,20 @@
 package com.example.pixhubandroid.viewmodel
 
+import android.content.Context
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.pixhubandroid.model.AccountBean
 import com.example.pixhubandroid.model.ArtistBean
 import com.example.pixhubandroid.model.MediaBean
 import com.example.pixhubandroid.model.PixhubAPI
+import com.example.pixhubandroid.model.PixhubAPI.search
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class SearchViewModel : ViewModel () {
-    val searchName = mutableStateOf("")
+    val query = mutableStateOf("")
     var errorMessage = mutableStateOf("")
     val mediaList = mutableStateListOf<MediaBean>()
     val artistList = mutableStateListOf<ArtistBean>()
@@ -21,13 +24,15 @@ class SearchViewModel : ViewModel () {
 
         viewModelScope.launch(Dispatchers.Default) {
             try {
-                val searchResult = PixhubAPI.search(searchName)
+                val searchResult = search(query) // Appelle la méthode search avec searchName
 
                 launch(Dispatchers.Main) {
-                    when (searchResult) {
-                        is MediaBean -> mediaList.add(searchResult)
-                        is ArtistBean -> artistList.add(searchResult)
-                        else -> errorMessage.value = "Aucun résultat trouvé"
+                    if (searchResult is MediaBean) {
+                        mediaList.add(searchResult)
+                    } else if (searchResult is ArtistBean) {
+                        artistList.add(searchResult)
+                    } else {
+                        errorMessage.value = "Aucun résultat trouvé"
                     }
                 }
             } catch (e: Exception) {
@@ -38,4 +43,5 @@ class SearchViewModel : ViewModel () {
             }
         }
     }
+
 }

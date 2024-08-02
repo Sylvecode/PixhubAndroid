@@ -112,8 +112,8 @@ object PixhubAPI {
         return gson.fromJson(response, MediaResponse::class.java)
     }
 
-    fun search(searchName: MutableState<String>): Any? {
-        val url = "http://10.0.2.2:8080/search?query=$searchName"
+    fun search(query: MutableState<String>): Any? {
+        val url = "http://10.0.2.2:8080/search?query=$query"
         val response = sendGet(url)
 
         // Vous devrez connaître la structure de votre réponse pour déterminer comment différencier MediaBean de ArtistBean

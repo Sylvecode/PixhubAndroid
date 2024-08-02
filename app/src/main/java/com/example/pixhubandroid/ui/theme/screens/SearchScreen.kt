@@ -67,6 +67,13 @@ fun SearchScreen(
     searchViewModel: SearchViewModel
 ) {
 
+    // Charger les détails du film en fonction de l'ID
+    LaunchedEffect(key1 = "") {
+        searchViewModel.loadSearchData()
+    }
+
+    val mediaList = searchViewModel.mediaList
+    val artistList = searchViewModel.artistList
 
     Scaffold(
         bottomBar = {
@@ -127,7 +134,7 @@ fun SearchScreen(
                     fontSize = 18.sp,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clickable{
+                        .clickable {
                             if (navHostController != null) {
                                 searchViewModel.loadSearchData()
                             }
@@ -139,8 +146,8 @@ fun SearchScreen(
 
                 val textState = rememberSaveable { mutableStateOf("") }
                 TextField(
-                    value = searchViewModel.searchName.value,
-                    onValueChange = { searchViewModel.searchName.value = it },
+                    value = searchViewModel.query.value,
+                    onValueChange = { searchViewModel.query.value = it },
                     placeholder = { Text(text = "Rechercher un film, un acteur...") },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -155,9 +162,44 @@ fun SearchScreen(
 
                 Spacer(Modifier.height(50.dp))
 
+                // Afficher les noms des médias ou des artistes
+                if (mediaList != null && mediaList.isNotEmpty()) {
+                    Text(
+                        text = mediaList.joinToString(", ") {
+                            it.name ?: "Nom inconnu"
+                        }, // Remplace les noms nulls par "Nom inconnu"
+                        textAlign = TextAlign.Center,
+                        fontSize = 18.sp,
+                        color = Color.White,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(10.dp)
+                    )
+                } else if (artistList != null && artistList.isNotEmpty()) {
+                    Text(
+                        text = artistList.joinToString(", ") {
+                            it.name ?: "Nom inconnu"
+                        }, // Remplace les noms nulls par "Nom inconnu"
+                        textAlign = TextAlign.Center,
+                        fontSize = 18.sp,
+                        color = Color.White,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(10.dp)
+                    )
+                } else {
+                    Text(
+                        text = "Aucun résultat",
+                        textAlign = TextAlign.Center,
+                        fontSize = 18.sp,
+                        color = Color.White,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(10.dp)
+                    )
 
 
-
+                }
             }
         }
     }
