@@ -119,6 +119,8 @@ object PixhubAPI {
         // Vous devrez connaître la structure de votre réponse pour déterminer comment différencier MediaBean de ArtistBean
         val jsonResponse = JsonParser.parseString(response).asJsonObject
 
+        println("Réponse JSON reçue: $jsonResponse")
+
         return when {
             jsonResponse.has("movies") -> gson.fromJson(jsonResponse.get("movies"), MediaBean::class.java)
             jsonResponse.has("persons") -> gson.fromJson(jsonResponse.get("persons"), ArtistBean::class.java)
