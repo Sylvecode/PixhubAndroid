@@ -164,7 +164,7 @@ fun AccountCreationScreen(
                     shape = RoundedCornerShape(14.dp),
                     value = pixhubViewModel.usernameText.value,
                     onValueChange = { pixhubViewModel.usernameText.value = it },
-                    colors = TextFieldDefaults.textFieldColors(
+                    colors = TextFieldDefaults.colors(
                         //backgroundColor = Color.Transparent, // Couleur d'arrière-plan transparente
                         focusedIndicatorColor = Color.Transparent, // Couleur de la bordure lorsqu'il est en focus
                         unfocusedIndicatorColor = Color.Transparent // Couleur de la bordure lorsqu'il n'est pas en focus
@@ -179,7 +179,7 @@ fun AccountCreationScreen(
                     shape = RoundedCornerShape(14.dp),
                     value = pixhubViewModel.familyNameText.value,
                     onValueChange = { pixhubViewModel.familyNameText.value = it },
-                    colors = TextFieldDefaults.textFieldColors(
+                    colors = TextFieldDefaults.colors(
                         //backgroundColor = Color.Transparent, // Couleur d'arrière-plan transparente
                         focusedIndicatorColor = Color.Transparent, // Couleur de la bordure lorsqu'il est en focus
                         unfocusedIndicatorColor = Color.Transparent // Couleur de la bordure lorsqu'il n'est pas en focus
@@ -195,7 +195,7 @@ fun AccountCreationScreen(
                     value = pixhubViewModel.nameText.value,
                     onValueChange = { pixhubViewModel.nameText.value = it },
                     modifier = Modifier.fillMaxWidth(),
-                    colors = TextFieldDefaults.textFieldColors(
+                    colors = TextFieldDefaults.colors(
                         //backgroundColor = Color.Transparent, // Couleur d'arrière-plan transparente
                         focusedIndicatorColor = Color.Transparent, // Couleur de la bordure lorsqu'il est en focus
                         unfocusedIndicatorColor = Color.Transparent // Couleur de la bordure lorsqu'il n'est pas en focus
@@ -211,7 +211,7 @@ fun AccountCreationScreen(
                     value = pixhubViewModel.emailText.value,
                     onValueChange = { pixhubViewModel.emailText.value = it },
                     modifier = Modifier.fillMaxWidth(),
-                    colors = TextFieldDefaults.textFieldColors(
+                    colors = TextFieldDefaults.colors(
                         //backgroundColor = Color.Transparent, // Couleur d'arrière-plan transparente
                         focusedIndicatorColor = Color.Transparent, // Couleur de la bordure lorsqu'il est en focus
                         unfocusedIndicatorColor = Color.Transparent // Couleur de la bordure lorsqu'il n'est pas en focus
@@ -227,7 +227,7 @@ fun AccountCreationScreen(
                     value = pixhubViewModel.passwordText.value,
                     onValueChange = { pixhubViewModel.passwordText.value = it },
                     modifier = Modifier.fillMaxWidth(),
-                    colors = TextFieldDefaults.textFieldColors(
+                    colors = TextFieldDefaults.colors(
                         //backgroundColor = Color.Transparent, // Couleur d'arrière-plan transparente
                         focusedIndicatorColor = Color.Transparent, // Couleur de la bordure lorsqu'il est en focus
                         unfocusedIndicatorColor = Color.Transparent // Couleur de la bordure lorsqu'il n'est pas en focus
@@ -243,7 +243,7 @@ fun AccountCreationScreen(
                     value = pixhubViewModel.passwordConfirmText.value,
                     onValueChange = { pixhubViewModel.passwordConfirmText.value = it },
                     modifier = Modifier.fillMaxWidth(),
-                    colors = TextFieldDefaults.textFieldColors(
+                    colors = TextFieldDefaults.colors(
                         //backgroundColor = Color.Transparent, // Couleur d'arrière-plan transparente
                         focusedIndicatorColor = Color.Transparent, // Couleur de la bordure lorsqu'il est en focus
                         unfocusedIndicatorColor = Color.Transparent // Couleur de la bordure lorsqu'il n'est pas en focus

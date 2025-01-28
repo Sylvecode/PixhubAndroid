@@ -30,6 +30,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.skydoves.landscapist.glide.GlideImage
+
 import kotlinx.coroutines.launch
 
 @Preview(showBackground = true, showSystemUi = true)
@@ -111,9 +112,9 @@ fun ArtistPageScreen(
                 )
 
                 Spacer(Modifier.height(30.dp))
-
+/*
                 GlideImage(
-                    imageModel = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2" + (artist?.profilePath ?: ""),
+                    imageModel = { "https://media.themoviedb.org/t/p/w300_and_h450_bestv2" + (artist?.profilePath ?: "") },
                     contentDescription = artist?.name,
                     modifier = Modifier
                         .height(150.dp)
@@ -122,6 +123,17 @@ fun ArtistPageScreen(
                     contentScale = ContentScale.Crop
                 )
 
+
+                GlideImage(
+                    imageModel = { "https://media.themoviedb.org/t/p/w300_and_h450_bestv2" + (artist?.profilePath ?: "") },
+                    contentDescription = artist?.name,
+                    modifier = Modifier
+                        .height(150.dp)
+                        .width(110.dp)
+                        .clip(RoundedCornerShape(5.dp)),
+                    contentScale = ContentScale.Crop
+                )
+*/
                 Spacer(Modifier.height(30.dp))
 
                 val biographyText = if (artist?.biography.isNullOrBlank()) "Biographie indisponible" else artist?.biography
@@ -170,6 +182,7 @@ fun ArtistPageScreen(
                                     .height(100.dp)
                                     .width(69.dp)
                             ) {
+                                /*
                                 GlideImage(
                                     imageModel = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2" + mediaItem.posterPath,
                                     contentDescription = mediaItem.title,
@@ -182,7 +195,7 @@ fun ArtistPageScreen(
                                         },
                                     contentScale = ContentScale.Crop
                                 )
-
+*/
 
                                 Box(
                                     modifier = Modifier
