@@ -162,7 +162,7 @@ fun LoginScreen(
                 shape = RoundedCornerShape(14.dp),
                 value = loginViewModel.username.value,
                 onValueChange = { loginViewModel.username.value = it },
-                colors = TextFieldDefaults.textFieldColors(
+                colors = TextFieldDefaults.colors(
                     //backgroundColor = Color.Transparent, // Couleur d'arrière-plan transparente
                     focusedIndicatorColor = Color.Transparent, // Couleur de la bordure lorsqu'il est en focus
                     unfocusedIndicatorColor = Color.Transparent // Couleur de la bordure lorsqu'il n'est pas en focus
@@ -182,7 +182,7 @@ fun LoginScreen(
                 shape = RoundedCornerShape(14.dp),
                 value = loginViewModel.password.value,
                 onValueChange = { loginViewModel.password.value = it },
-                colors = TextFieldDefaults.textFieldColors(
+                colors = TextFieldDefaults.colors(
                     //backgroundColor = Color.Transparent, // Couleur d'arrière-plan transparente
                     focusedIndicatorColor = Color.Transparent, // Couleur de la bordure lorsqu'il est en focus
                     unfocusedIndicatorColor = Color.Transparent // Couleur de la bordure lorsqu'il n'est pas en focus

@@ -1,6 +1,8 @@
 package com.example.pixhubandroid.ui.theme.screens
 
 import android.annotation.SuppressLint
+import androidx.compose.animation.expandHorizontally
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -15,6 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -23,6 +26,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.example.pixhubandroid.R
 import com.example.pixhubandroid.ui.theme.PixhubAndroidTheme
 import com.example.pixhubandroid.viewmodel.ArtistPageViewModel
 import com.example.pixhubandroid.viewmodel.CalendarViewModel
@@ -91,7 +95,7 @@ fun ArtistPageScreen(
             modifier = Modifier
                 .background(color = Color(0xFF1E2535))
                 .fillMaxSize()
-                .padding(innerPadding)
+                .padding(innerPadding),
         ) {
             Column(
                 modifier = Modifier
@@ -99,7 +103,20 @@ fun ArtistPageScreen(
                     .padding(10.dp)
                     .verticalScroll(scrollState)
             ) {
-                Spacer(Modifier.height(30.dp))
+                Spacer(Modifier.height(5.dp))
+
+                GlideImage(
+                    imageModel = { "https://media.themoviedb.org/t/p/w300_and_h450_bestv2" + (artist?.profilePath ?: "") },
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .height(150.dp)
+                        .width(110.dp)
+                        .clip(RoundedCornerShape(5.dp)),
+
+                    )
+
+                Spacer(Modifier.height(10.dp))
+
 
                 Text(
                     text = artist?.name ?: "Nom artiste",
@@ -111,30 +128,7 @@ fun ArtistPageScreen(
                         .padding(10.dp)
                 )
 
-                Spacer(Modifier.height(30.dp))
-/*
-                GlideImage(
-                    imageModel = { "https://media.themoviedb.org/t/p/w300_and_h450_bestv2" + (artist?.profilePath ?: "") },
-                    contentDescription = artist?.name,
-                    modifier = Modifier
-                        .height(150.dp)
-                        .width(110.dp)
-                        .clip(RoundedCornerShape(5.dp)),
-                    contentScale = ContentScale.Crop
-                )
-
-
-                GlideImage(
-                    imageModel = { "https://media.themoviedb.org/t/p/w300_and_h450_bestv2" + (artist?.profilePath ?: "") },
-                    contentDescription = artist?.name,
-                    modifier = Modifier
-                        .height(150.dp)
-                        .width(110.dp)
-                        .clip(RoundedCornerShape(5.dp)),
-                    contentScale = ContentScale.Crop
-                )
-*/
-                Spacer(Modifier.height(30.dp))
+                Spacer(Modifier.height(12.dp))
 
                 val biographyText = if (artist?.biography.isNullOrBlank()) "Biographie indisponible" else artist?.biography
 
@@ -182,20 +176,15 @@ fun ArtistPageScreen(
                                     .height(100.dp)
                                     .width(69.dp)
                             ) {
-                                /*
+
                                 GlideImage(
-                                    imageModel = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2" + mediaItem.posterPath,
-                                    contentDescription = mediaItem.title,
+                                    imageModel = { "https://media.themoviedb.org/t/p/w300_and_h450_bestv2" + mediaItem.posterPath },
                                     modifier = Modifier
                                         .fillMaxSize()
                                         .clickable {
-                                            if (navHostController != null) {
-                                                navHostController.navigate("MediaPageScreen/${mediaItem.id}")
-                                            }
-                                        },
-                                    contentScale = ContentScale.Crop
+                                            navHostController?.navigate("MediaPageScreen/${mediaItem.id}")
+                                        }
                                 )
-*/
 
                                 Box(
                                     modifier = Modifier

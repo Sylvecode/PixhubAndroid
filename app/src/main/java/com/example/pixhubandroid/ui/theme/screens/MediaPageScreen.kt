@@ -1,6 +1,7 @@
 package com.example.pixhubandroid.ui.theme.screens
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -17,6 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,6 +29,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.example.pixhubandroid.R
 import com.example.pixhubandroid.ui.theme.PixhubAndroidTheme
 import com.example.pixhubandroid.viewmodel.ArtistPageViewModel
 import com.example.pixhubandroid.viewmodel.CalendarViewModel
@@ -33,6 +38,10 @@ import com.example.pixhubandroid.viewmodel.UserViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
+import com.skydoves.landscapist.glide.GlideImage
+import com.skydoves.landscapist.glide.GlideImageState
+import com.skydoves.landscapist.glide.rememberGlideImageState
+import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.glide.GlideImage
 
 @Preview(showBackground = true, showSystemUi = true)
@@ -89,6 +98,7 @@ fun MediaPageScreen(
             modifier = Modifier
                 .background(color = Color(0xFF1E2535))
                 .fillMaxSize()
+                .padding(innerPadding)
                 .padding(10.dp)
         ) {
             Column(
@@ -104,10 +114,13 @@ fun MediaPageScreen(
                         .height(200.dp) // Ajustez la hauteur selon vos besoins
                 ) {
                     GlideImage(
-                        imageModel = "https://image.tmdb.org/t/p/original" + (media?.backdropPath ?: String),
-                        contentDescription = media?.title,
-                        modifier = Modifier.fillMaxSize(),
-                        contentScale = ContentScale.Crop
+                        imageModel = { "https://image.tmdb.org/t/p/original" + (media?.backdropPath ?: String) },
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .semantics { contentDescription = media?.title ?: "Media image" },
+                        imageOptions = ImageOptions(
+                            contentScale = ContentScale.Crop // This replaces the old direct parameter
+                        ),
                     )
 
                     Box(
@@ -182,16 +195,31 @@ fun MediaPageScreen(
                                         .width(69.dp)
                                 ) {
                                     GlideImage(
-                                        imageModel = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2" + artist.profilePath,
-                                        contentDescription = artist.name,
+                                        imageModel = { "https://media.themoviedb.org/t/p/w300_and_h450_bestv2${artist.profilePath}" },
                                         modifier = Modifier
                                             .fillMaxSize()
                                             .clickable {
-                                                if (navHostController != null) {
-                                                    navHostController.navigate("ArtistPageScreen/${artist.id}")
-                                                }
+                                                navHostController?.navigate("ArtistPageScreen/${artist.id}")
                                             },
-                                        contentScale = ContentScale.Crop
+                                        success = { imageState, painter ->
+                                            Image(
+                                                painter = painter,
+                                                contentDescription = artist.name ?: "Artist Image",
+                                                modifier = Modifier.fillMaxSize()
+                                            )
+                                        },
+                                        loading = {
+                                            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                                                CircularProgressIndicator()
+                                            }
+                                        },
+                                        failure = {
+                                            Image(
+                                                painter = painterResource(id = R.drawable.profileicon),
+                                                contentDescription = "Image not available",
+                                                modifier = Modifier.fillMaxSize()
+                                            )
+                                        }
                                     )
 
                                     Box(

@@ -87,6 +87,7 @@ fun SearchScreen(
         Box(
             modifier = Modifier
                 .background(color = Color(0xFF1E2535))
+                .padding(innerPadding)
                 .padding(25.dp)
                 .fillMaxSize()
         ) {
@@ -152,7 +153,7 @@ fun SearchScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp),
-                    colors = TextFieldDefaults.textFieldColors(
+                    colors = TextFieldDefaults.colors(
                         cursorColor = Color.Black,
                         focusedIndicatorColor = Color.Transparent,
                         unfocusedIndicatorColor = Color.Transparent

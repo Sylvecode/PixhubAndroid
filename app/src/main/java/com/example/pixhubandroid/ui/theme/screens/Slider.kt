@@ -75,7 +75,7 @@ fun Slider(calendarViewModel: CalendarViewModel, navHostController: NavHostContr
                 color = Color.LightGray,
                 fontSize = 15.sp
             )
-
+/*
             Text(
                 text = "Jeux vidéos",
                 fontSize = 10.sp,
@@ -87,7 +87,7 @@ fun Slider(calendarViewModel: CalendarViewModel, navHostController: NavHostContr
                 }
             )
 
-
+*/
 
             Spacer(Modifier.height(12.dp))
 
